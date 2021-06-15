@@ -126,7 +126,7 @@ func getKey(url string) (b []byte, err error) {
 
 	b = res.Bytes()
 
-	c.Set(url, b, time.Hour*24, nil)
+	c.Set(url, b, time.Hour, nil)
 
 	return
 }

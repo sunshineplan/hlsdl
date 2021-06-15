@@ -17,18 +17,18 @@ import (
 )
 
 const path = "output"
+const defaultName = "output.ts"
 
 type Downloader struct {
 	m3u8    string
 	workers *workers.Workers
+	results []errResult
 }
 
 type errResult struct {
 	id  uint64
 	err error
 }
-
-var results []errResult
 
 func SetAgent(ua string) {
 	gohttp.SetAgent(ua)
@@ -46,7 +46,7 @@ func (d *Downloader) SetWorkers(n int) *Downloader {
 	return d
 }
 
-func dlSegment(s *m3u8.MediaSegment, output string) {
+func (d *Downloader) dlSegment(s *m3u8.MediaSegment, output string) {
 	output = filepath.Join(path, output+".tmp", fmt.Sprintf("%d.ts", s.SeqId))
 
 	var res *gohttp.Response
@@ -63,20 +63,20 @@ func dlSegment(s *m3u8.MediaSegment, output string) {
 			return res.Save(output)
 		}, 5, 5,
 	); err != nil {
-		results = append(results, errResult{id: s.SeqId, err: err})
+		d.results = append(d.results, errResult{id: s.SeqId, err: err})
 
 		os.OpenFile(output, os.O_RDONLY|os.O_CREATE, 0644)
 	}
 }
 
 func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) error {
-	pb := progressbar.New(len(s))
+	pb := progressbar.New(int64(len(s)))
 	pb.Start()
 
 	if err := d.workers.Slice(s, func(_ int, item interface{}) {
 		defer pb.Add(1)
 
-		dlSegment(item.(*m3u8.MediaSegment), output)
+		d.dlSegment(item.(*m3u8.MediaSegment), output)
 	}); err != nil {
 		return err
 	}
@@ -87,7 +87,7 @@ func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) error {
 
 func (d *Downloader) Run(output string) error {
 	if output == "" {
-		output = "output.mp4"
+		output = defaultName
 	}
 
 	u, err := url.Parse(d.m3u8)
@@ -136,9 +136,9 @@ func (d *Downloader) Run(output string) error {
 			return err
 		}
 	}
-	if len(results) > 0 {
-		fmt.Printf("Total %d Error:\n", len(results))
-		for _, i := range results {
+	if len(d.results) > 0 {
+		fmt.Printf("Total %d Error:\n", len(d.results))
+		for _, i := range d.results {
 			fmt.Printf("id: %d, error: %s\n", i.id, i.err)
 		}
 	}
