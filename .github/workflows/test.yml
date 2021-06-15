@@ -19,9 +19,9 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.16'
+          go-version: '1.x'
 
       - name: Run Unit tests
         run: |
           go mod download
-          sudo go test -v ./...
+          go test -v ./...

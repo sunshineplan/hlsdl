@@ -65,7 +65,7 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, output string) {
 	); err != nil {
 		d.results = append(d.results, errResult{id: s.SeqId, err: err})
 
-		os.OpenFile(output, os.O_RDONLY|os.O_CREATE, 0644)
+		os.OpenFile(output, os.O_RDONLY|os.O_CREATE, 0755)
 	}
 }
 
@@ -101,7 +101,7 @@ func (d *Downloader) Run(output string) error {
 	}
 
 	tmp := filepath.Join(path, output+".tmp")
-	if err := os.MkdirAll(tmp, 0644); err != nil {
+	if err := os.MkdirAll(tmp, 0755); err != nil {
 		return err
 	}
 
