@@ -1,9 +1,9 @@
 github.com/grafov/m3u8 v0.11.1 h1:igZ7EBIB2IAsPPazKwRKdbhxcoBKO3lO1UY57PZDeNA=
 github.com/grafov/m3u8 v0.11.1/go.mod h1:nqzOkfBiZJENr52zTVd/Dcl03yzphIMbJqkXGu+u080=
-github.com/sunshineplan/gohttp v0.0.0-20210615011639-58b41a790454 h1:JfzB/tFIR21ncY2KZRTcyTDy2kMSZfmhVKYMBlgfSCM=
-github.com/sunshineplan/gohttp v0.0.0-20210615011639-58b41a790454/go.mod h1:0S9nCy6TGyR45MLTLNs45GX5KRNyrU84BaFpz9P6508=
-github.com/sunshineplan/utils v0.0.0-20210615062112-57b537eb5b9f h1:7GBp4/A779l3iAwkkS7a1ZW159VBV7VfOzWDJVV0dG4=
-github.com/sunshineplan/utils v0.0.0-20210615062112-57b537eb5b9f/go.mod h1:fJ8/Fjbd50RwQ8/wxBmBgkuDHfcXrCJu6c/iRsgkYok=
+github.com/sunshineplan/gohttp v0.0.0-20210628014320-204fe520949d h1:EhwsuzjVHAugS9WUmw1j0TgVBEVcA8/BSxbp6Y+EC0E=
+github.com/sunshineplan/gohttp v0.0.0-20210628014320-204fe520949d/go.mod h1:0S9nCy6TGyR45MLTLNs45GX5KRNyrU84BaFpz9P6508=
+github.com/sunshineplan/utils v0.0.0-20210624055436-282dca1240dc h1:rJ5oUy7a1VSN5QiQgCUIFwiGQLwoj7UFKBEzJLdU9Dg=
+github.com/sunshineplan/utils v0.0.0-20210624055436-282dca1240dc/go.mod h1:fJ8/Fjbd50RwQ8/wxBmBgkuDHfcXrCJu6c/iRsgkYok=
 golang.org/x/net v0.0.0-20210614182718-04defd469f4e h1:XpT3nA5TvE525Ne3hInMh6+GETgn27Zfm9dxsThnX2Q=
 golang.org/x/net v0.0.0-20210614182718-04defd469f4e/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
 golang.org/x/sys v0.0.0-20201119102817-f84b799fce68/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=

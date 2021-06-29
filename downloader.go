@@ -70,7 +70,7 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, output string) {
 }
 
 func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) error {
-	pb := progressbar.New(int64(len(s)))
+	pb := progressbar.New(len(s))
 	pb.Start()
 
 	if err := d.workers.Slice(s, func(_ int, item interface{}) {
@@ -80,7 +80,7 @@ func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) error {
 	}); err != nil {
 		return err
 	}
-	<-pb.Done
+	pb.Done()
 
 	return nil
 }

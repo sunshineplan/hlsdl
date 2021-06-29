@@ -4,6 +4,6 @@ go 1.16
 
 require (
 	github.com/grafov/m3u8 v0.11.1
-	github.com/sunshineplan/gohttp v0.0.0-20210615011639-58b41a790454
-	github.com/sunshineplan/utils v0.0.0-20210615062112-57b537eb5b9f
+	github.com/sunshineplan/gohttp v0.0.0-20210628014320-204fe520949d
+	github.com/sunshineplan/utils v0.0.0-20210624055436-282dca1240dc
 )
