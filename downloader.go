@@ -42,47 +42,39 @@ func (d *Downloader) SetWorkers(n int) *Downloader {
 	if n > 0 {
 		d.workers = workers.New(n)
 	}
-
 	return d
 }
 
 func (d *Downloader) dlSegment(s *m3u8.MediaSegment, output string) {
 	output = filepath.Join(path, output+".tmp", fmt.Sprintf("%d.ts", s.SeqId))
 
-	var res *gohttp.Response
 	if err := utils.Retry(
 		func() error {
-			res = gohttp.Get(s.URI, nil)
-			if res.StatusCode != 200 {
-				return fmt.Errorf("no StatusOK response from %s", s.URI)
-			}
+			res := gohttp.Get(s.URI, nil)
 			if res.Error != nil {
 				return res.Error
+			}
+			if res.StatusCode != 200 {
+				return fmt.Errorf("no StatusOK response from %s", s.URI)
 			}
 
 			return res.Save(output)
 		}, 5, 5,
 	); err != nil {
-		d.results = append(d.results, errResult{id: s.SeqId, err: err})
-
-		os.OpenFile(output, os.O_RDONLY|os.O_CREATE, 0755)
+		d.results = append(d.results, errResult{s.SeqId, err})
+		os.WriteFile(output, nil, 0666)
 	}
 }
 
-func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) error {
+func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) {
 	pb := progressbar.New(len(s))
 	pb.Start()
+	defer pb.Done()
 
-	if err := d.workers.Slice(s, func(_ int, item interface{}) {
+	d.workers.Slice(s, func(_ int, item interface{}) {
 		defer pb.Add(1)
-
 		d.dlSegment(item.(*m3u8.MediaSegment), output)
-	}); err != nil {
-		return err
-	}
-	pb.Done()
-
-	return nil
+	})
 }
 
 func (d *Downloader) Run(output string) error {
@@ -105,9 +97,7 @@ func (d *Downloader) Run(output string) error {
 		return err
 	}
 
-	if err := d.dlSegments(segments, output); err != nil {
-		return err
-	}
+	d.dlSegments(segments, output)
 
 	log.Print("Merging segments...")
 
