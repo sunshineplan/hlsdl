@@ -8,4 +8,4 @@ require (
 	github.com/sunshineplan/utils v0.0.20
 )
 
-require golang.org/x/net v0.0.0-20211116231205-47ca1ff31462 // indirect
+require golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4 // indirect

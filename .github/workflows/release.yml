@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [ Test, Dependabot ]
+    types: 
+      - completed
+
+jobs:
+  release:
+    if: |
+      github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' &&
+        (github.event.workflow_run.name == 'Test' && github.event.workflow_run.head_branch == 'main' ||
+         github.event.workflow_run.name == 'Dependabot')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.x'
+
+      - name: Build
+        id: build
+        run: |
+          go build -ldflags "-s -w" -o hlsdl ./cmd
+          GOOS=windows go build -ldflags "-s -w" -o hlsdl.exe ./cmd
+          echo "::set-output name=date::$(TZ=PRC date +'%Y-%m-%d')"
+
+      - name: Delete Old Release
+        uses: actions/github-script@v5
+        with:
+          script: |
+            let release
+            try {
+              release = await github.rest.repos.getReleaseByTag({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag: 'v1.0'
+              })
+            } catch(e) {
+              console.error(e)
+              return
+            }
+
+            await github.rest.repos.deleteRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id
+            })
+
+            await github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'tags/v1.0'
+            })
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0
+          name: ${{ steps.build.outputs.date }}
+          body: ${{ steps.build.outputs.date }}
+          files: hlsdl*

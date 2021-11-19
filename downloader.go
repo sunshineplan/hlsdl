@@ -16,7 +16,6 @@ import (
 	"github.com/sunshineplan/utils/workers"
 )
 
-const path = "output"
 const defaultName = "output.ts"
 
 type Downloader struct {
@@ -45,7 +44,7 @@ func (d *Downloader) SetWorkers(n int) *Downloader {
 	return d
 }
 
-func (d *Downloader) dlSegment(s *m3u8.MediaSegment, output string) {
+func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 	output = filepath.Join(path, output+".tmp", fmt.Sprintf("%d.ts", s.SeqId))
 
 	if err := utils.Retry(
@@ -66,18 +65,18 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, output string) {
 	}
 }
 
-func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, output string) {
+func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, path, output string) {
 	pb := progressbar.New(len(s))
 	pb.Start()
 	defer pb.Done()
 
 	d.workers.Slice(s, func(_ int, item interface{}) {
 		defer pb.Add(1)
-		d.dlSegment(item.(*m3u8.MediaSegment), output)
+		d.dlSegment(item.(*m3u8.MediaSegment), path, output)
 	})
 }
 
-func (d *Downloader) Run(output string) error {
+func (d *Downloader) Run(path, output string) error {
 	if output == "" {
 		output = defaultName
 	}
@@ -97,7 +96,7 @@ func (d *Downloader) Run(output string) error {
 		return err
 	}
 
-	d.dlSegments(segments, output)
+	d.dlSegments(segments, path, output)
 
 	log.Print("Merging segments...")
 
