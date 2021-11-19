@@ -32,7 +32,7 @@ func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
 			continue
 		}
 
-		if !strings.Contains(s.URI, "http") {
+		if !strings.HasPrefix(s.URI, "http") {
 			segmentURL, err := u.Parse(s.URI)
 			if err != nil {
 				return nil, err
@@ -41,11 +41,15 @@ func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
 			s.URI = segmentURL.String()
 		}
 
-		if s.Key == nil && mediaList.Key != nil {
-			s.Key = mediaList.Key
+		if s.Discontinuity {
+			mediaList.Key = s.Key
+		} else {
+			if s.Key == nil && mediaList.Key != nil {
+				s.Key = mediaList.Key
+			}
 		}
 
-		if s.Key != nil && !strings.Contains(s.Key.URI, "http") {
+		if s.Key != nil && s.Key.URI != "" && !strings.HasPrefix(s.Key.URI, "http") {
 			keyURL, err := u.Parse(s.Key.URI)
 			if err != nil {
 				return nil, err
@@ -60,13 +64,16 @@ func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
 	return segments, nil
 }
 
-func save(s *m3u8.MediaSegment, path string) ([]byte, error) {
-	data, err := os.ReadFile(path)
+func read(s *m3u8.MediaSegment, file string) ([]byte, error) {
+	data, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
+	if len(data) == 0 {
+		return nil, nil
+	}
 
-	if s.Key != nil {
+	if s.Key != nil && s.Key.URI != "" && s.Key.Method == "AES-128" {
 		key, err := getKey(s.Key.URI)
 		if err != nil {
 			return nil, err

@@ -112,12 +112,12 @@ func (d *Downloader) Run(path, output string) error {
 
 	for _, segment := range segments {
 		file := filepath.Join(tmp, fmt.Sprintf("%d.ts", segment.SeqId))
-		d, err := save(segment, file)
+		data, err := read(segment, file)
 		if err != nil {
 			return err
 		}
 
-		if _, err := f.Write(d); err != nil {
+		if _, err := f.Write(data); err != nil {
 			return err
 		}
 
