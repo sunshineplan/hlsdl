@@ -17,7 +17,7 @@ package main
 import "github.com/sunshineplan/hlsdl"
 
 func main() {
-    m3u8 := "https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls.m3u8"
+	m3u8 := "https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls.m3u8"
 	task := hlsdl.NewTask(m3u8).SetWorkers(10)
 	if err := task.Run("output", "video.ts"); err != nil {
 		panic(err)
