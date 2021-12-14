@@ -1,7 +1,7 @@
 github.com/grafov/m3u8 v0.11.1 h1:igZ7EBIB2IAsPPazKwRKdbhxcoBKO3lO1UY57PZDeNA=
 github.com/grafov/m3u8 v0.11.1/go.mod h1:nqzOkfBiZJENr52zTVd/Dcl03yzphIMbJqkXGu+u080=
-github.com/sunshineplan/gohttp v1.0.2 h1:yqPbdv0VVgtU6sFWxCc1pNghNSQI7EFVdOgFMztOKrU=
-github.com/sunshineplan/gohttp v1.0.2/go.mod h1:6ETpgffOt/gQjfgRonc61WrwqJyybczDiaiLY6DCTho=
+github.com/sunshineplan/gohttp v1.0.3 h1:HChCDluQzfRNPcjxG6VLK5Kn/zxWbh/FLZXyNn3E+5I=
+github.com/sunshineplan/gohttp v1.0.3/go.mod h1:6ETpgffOt/gQjfgRonc61WrwqJyybczDiaiLY6DCTho=
 github.com/sunshineplan/utils v0.0.26 h1:v6B3lgiIf+Ht6Hm6o3AFIsrDXyWzyZFNHekDM8FuE7g=
 github.com/sunshineplan/utils v0.0.26/go.mod h1:95AdNDzwlNcOSwYsCEFIzDOC/osnR3EnIeE5UmbN/SE=
 golang.org/x/net v0.0.0-20211208000202-04296fa82e83 h1:mfTgaSp8OlMh7Fswkf4bUirzDYYy9r+aDoH1RtOv4dc=
