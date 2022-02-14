@@ -31,7 +31,7 @@ jobs:
           echo "::set-output name=date::$(TZ=PRC date +'%Y-%m-%d')"
 
       - name: Delete Old Release
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             let release
