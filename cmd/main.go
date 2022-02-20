@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/sunshineplan/hlsdl"
 )
@@ -41,15 +40,15 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 	for len(flag.Args()) != 0 {
-		if url == "" {
-			url = flag.Args()[0]
-		} else {
-			log.Fatalln("Unknown arguments:", strings.Join(flag.Args(), " "))
-		}
+		url = flag.Args()[0]
 		os.Args = append(os.Args[:1], flag.Args()[1:]...)
 		flag.Parse()
 	}
 
+	if url == "" {
+		fmt.Print("Please input m3u8 url: ")
+		fmt.Scanln(&url)
+	}
 	if url == "" {
 		log.Print("No m3u8 url provided.")
 		return
