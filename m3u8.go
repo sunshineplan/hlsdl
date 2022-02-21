@@ -3,7 +3,6 @@ package hlsdl
 import (
 	"encoding/binary"
 	"fmt"
-	"log"
 	"net/url"
 	"os"
 	"time"
@@ -15,12 +14,11 @@ import (
 
 var c = cache.New(false)
 
-func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
+func getSegments(u *url.URL) (*url.URL, []*m3u8.MediaSegment, error) {
 	u, mediaList, err := FetchM3U8MediaPlaylist(u, true)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	log.Println("Downloading from", u)
 
 	segments := []*m3u8.MediaSegment{}
 	for _, s := range mediaList.Segments {
@@ -31,7 +29,7 @@ func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
 		if s.Key != nil && s.Key.URI != "" {
 			u, err := u.Parse(s.Key.URI)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 			s.Key.URI = u.String()
 		}
@@ -46,14 +44,14 @@ func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
 
 		u, err := u.Parse(s.URI)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		s.URI = u.String()
 
 		segments = append(segments, s)
 	}
 
-	return segments, nil
+	return u, segments, nil
 }
 
 func read(s *m3u8.MediaSegment, file string) ([]byte, error) {

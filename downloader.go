@@ -86,7 +86,7 @@ func (d *Downloader) Run(path, output string) error {
 		return fmt.Errorf("invalid m3u8 url")
 	}
 
-	segments, err := getSegments(u)
+	u, segments, err := getSegments(u)
 	if err != nil {
 		return err
 	}
@@ -95,6 +95,8 @@ func (d *Downloader) Run(path, output string) error {
 	if err := os.MkdirAll(tmp, 0755); err != nil {
 		return err
 	}
+
+	log.Println("Downloading from", u)
 
 	d.dlSegments(segments, path, output)
 
