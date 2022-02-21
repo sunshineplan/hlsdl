@@ -1,13 +1,10 @@
 package hlsdl
 
 import (
-	"bytes"
 	"encoding/binary"
 	"fmt"
-	"log"
 	"net/url"
 	"os"
-	"sort"
 	"time"
 
 	"github.com/grafov/m3u8"
@@ -18,7 +15,7 @@ import (
 var c = cache.New(false)
 
 func getSegments(u *url.URL) ([]*m3u8.MediaSegment, error) {
-	mediaList, err := getM3u8MediaPlaylist(u)
+	mediaList, err := getM3U8MediaPlaylist(u)
 	if err != nil {
 		return nil, err
 	}
@@ -93,48 +90,6 @@ func read(s *m3u8.MediaSegment, file string) ([]byte, error) {
 	}
 
 	return data, nil
-}
-
-func getM3u8MediaPlaylist(u *url.URL) (*m3u8.MediaPlaylist, error) {
-	res := gohttp.Get(u.String(), nil)
-	if res.Error != nil {
-		return nil, res.Error
-	}
-	if res.StatusCode != 200 {
-		return nil, fmt.Errorf("no StatusOK response from %s", u)
-	}
-
-	playlist, _, err := m3u8.DecodeFrom(bytes.NewBuffer(res.Bytes()), false)
-	if err != nil {
-		return nil, err
-	}
-	if media, ok := playlist.(*m3u8.MediaPlaylist); ok {
-		log.Println("Downloading from", u)
-		return media, nil
-	}
-	if master, ok := playlist.(*m3u8.MasterPlaylist); ok {
-		for _, i := range master.Variants {
-			u, err := u.Parse(i.URI)
-			if err != nil {
-				continue
-			}
-			i.URI = u.String()
-		}
-		sort.SliceStable(master.Variants, func(i, j int) bool {
-			return master.Variants[i].Bandwidth > master.Variants[j].Bandwidth
-		})
-		if len(master.Variants) != 0 {
-			log.Print("Parse from master playlist:")
-			fmt.Println(master)
-
-			u, err = u.Parse(master.Variants[0].URI)
-			if err != nil {
-				return nil, err
-			}
-			return getM3u8MediaPlaylist(u)
-		}
-	}
-	return nil, fmt.Errorf("unknown playlist type")
 }
 
 func getKey(url string) (b []byte, err error) {
