@@ -21,31 +21,35 @@ import (
 
 var urlParse = url.Parse
 
-func getM3U8MediaPlaylist(u *url.URL) (*m3u8.MediaPlaylist, error) {
+func FetchM3U8MediaPlaylist(u *url.URL, debug bool) (*url.URL, *m3u8.MediaPlaylist, error) {
 	res := gohttp.Get(u.String(), nil)
 	if res.Error != nil {
-		return nil, res.Error
+		return nil, nil, res.Error
 	}
 	if res.StatusCode != 200 {
-		return nil, fmt.Errorf("no StatusOK response from %s", u)
+		return nil, nil, fmt.Errorf("no StatusOK response from %s", u)
 	}
 
 	var r io.Reader
 	playlist, _, err := m3u8.DecodeFrom(bytes.NewReader(res.Bytes()), false)
 	if err != nil {
-		log.Println("Analyzing", u)
-		r, u, err = getM3U8(u.String())
+		if debug {
+			log.Println("Analyzing", u)
+		}
+		r, u, err = fetchM3U8(u.String())
 		if err != nil {
-			return nil, err
+			return nil, nil, err
+		}
+		if debug {
+			log.Println("Found", u)
 		}
 		playlist, _, err = m3u8.DecodeFrom(r, false)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 	}
 	if media, ok := playlist.(*m3u8.MediaPlaylist); ok {
-		log.Println("Downloading from", u)
-		return media, nil
+		return u, media, nil
 	}
 	if master, ok := playlist.(*m3u8.MasterPlaylist); ok {
 		for _, i := range master.Variants {
@@ -59,20 +63,22 @@ func getM3U8MediaPlaylist(u *url.URL) (*m3u8.MediaPlaylist, error) {
 			return master.Variants[i].Bandwidth > master.Variants[j].Bandwidth
 		})
 		if len(master.Variants) != 0 {
-			log.Print("Parse from master playlist:")
-			fmt.Println(master)
+			if debug {
+				log.Print("Parse from master playlist:")
+				fmt.Println(master)
+			}
 
 			u, err = u.Parse(master.Variants[0].URI)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
-			return getM3U8MediaPlaylist(u)
+			return FetchM3U8MediaPlaylist(u, debug)
 		}
 	}
-	return nil, fmt.Errorf("unknown playlist type")
+	return nil, nil, fmt.Errorf("unknown playlist type")
 }
 
-func getM3U8(url string) (r io.Reader, u *url.URL, err error) {
+func fetchM3U8(url string) (r io.Reader, u *url.URL, err error) {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
@@ -85,7 +91,6 @@ func getM3U8(url string) (r io.Reader, u *url.URL, err error) {
 		switch ev := v.(type) {
 		case *network.EventRequestWillBeSent:
 			if strings.Contains(ev.Request.URL, ".m3u8") && id == "" {
-				log.Println("Found", ev.Request.URL)
 				u, _ = urlParse(ev.Request.URL)
 				id = ev.RequestID
 			}
