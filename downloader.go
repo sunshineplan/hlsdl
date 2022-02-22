@@ -86,7 +86,7 @@ func (d *Downloader) Run(path, output string) error {
 		return fmt.Errorf("invalid m3u8 url")
 	}
 
-	u, segments, err := getSegments(u)
+	u, playlist, err := FetchM3U8MediaPlaylist(u, true)
 	if err != nil {
 		return err
 	}
@@ -98,7 +98,7 @@ func (d *Downloader) Run(path, output string) error {
 
 	log.Println("Downloading from", u)
 
-	d.dlSegments(segments, path, output)
+	d.dlSegments(playlist.Segments, path, output)
 
 	log.Print("Merging segments...")
 
@@ -108,11 +108,11 @@ func (d *Downloader) Run(path, output string) error {
 	}
 	defer f.Close()
 
-	sort.Slice(segments, func(i, j int) bool {
-		return segments[i].SeqId < segments[j].SeqId
+	sort.Slice(playlist.Segments, func(i, j int) bool {
+		return playlist.Segments[i].SeqId < playlist.Segments[j].SeqId
 	})
 
-	for _, segment := range segments {
+	for _, segment := range playlist.Segments {
 		file := filepath.Join(tmp, fmt.Sprintf("%d.ts", segment.SeqId))
 		data, err := read(segment, file)
 		if err != nil {

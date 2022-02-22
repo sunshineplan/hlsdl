@@ -48,33 +48,69 @@ func FetchM3U8MediaPlaylist(u *url.URL, debug bool) (*url.URL, *m3u8.MediaPlayli
 			return nil, nil, err
 		}
 	}
-	if media, ok := playlist.(*m3u8.MediaPlaylist); ok {
-		return u, media, nil
-	}
-	if master, ok := playlist.(*m3u8.MasterPlaylist); ok {
-		for _, i := range master.Variants {
+
+	switch playlist := playlist.(type) {
+	case *m3u8.MediaPlaylist:
+		var segments []*m3u8.MediaSegment
+		for _, s := range playlist.Segments {
+			if s == nil {
+				continue
+			}
+
+			if s.Key != nil && s.Key.URI != "" {
+				u, err := u.Parse(s.Key.URI)
+				if err != nil {
+					return nil, nil, err
+				}
+				s.Key.URI = u.String()
+			}
+
+			if s.Discontinuity {
+				playlist.Key = s.Key
+			} else {
+				if s.Key == nil && playlist.Key != nil {
+					s.Key = playlist.Key
+				}
+			}
+
+			u, err := u.Parse(s.URI)
+			if err != nil {
+				return nil, nil, err
+			}
+			s.URI = u.String()
+
+			segments = append(segments, s)
+		}
+		playlist.Segments = segments
+
+		return u, playlist, nil
+	case *m3u8.MasterPlaylist:
+		for _, i := range playlist.Variants {
 			u, err := u.Parse(i.URI)
 			if err != nil {
 				continue
 			}
 			i.URI = u.String()
 		}
-		sort.SliceStable(master.Variants, func(i, j int) bool {
-			return master.Variants[i].Bandwidth > master.Variants[j].Bandwidth
+		sort.SliceStable(playlist.Variants, func(i, j int) bool {
+			return playlist.Variants[i].Bandwidth > playlist.Variants[j].Bandwidth
 		})
-		if len(master.Variants) != 0 {
+		if len(playlist.Variants) != 0 {
 			if debug {
 				log.Print("Parse from master playlist:")
-				fmt.Println(master)
+				fmt.Println(playlist)
 			}
 
-			u, err = u.Parse(master.Variants[0].URI)
+			u, err = u.Parse(playlist.Variants[0].URI)
 			if err != nil {
 				return nil, nil, err
 			}
 			return FetchM3U8MediaPlaylist(u, debug)
+		} else {
+			return nil, nil, fmt.Errorf("empty master playlist")
 		}
 	}
+
 	return nil, nil, fmt.Errorf("unknown playlist type")
 }
 
