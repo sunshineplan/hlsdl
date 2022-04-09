@@ -58,8 +58,7 @@ func main() {
 		hlsdl.SetAgent(*userAgent)
 	}
 
-	task := hlsdl.NewTask(url).SetWorkers(*workers)
-	if err := task.Run(*path, *output); err != nil {
+	if err := hlsdl.NewTask(url).SetWorkers(*workers).Run(*path, *output); err != nil {
 		log.Print(err)
 	}
 }

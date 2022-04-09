@@ -6,13 +6,12 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"runtime"
 	"sort"
 
 	"github.com/grafov/m3u8"
 	"github.com/sunshineplan/gohttp"
-	"github.com/sunshineplan/utils"
 	"github.com/sunshineplan/utils/progressbar"
+	"github.com/sunshineplan/utils/retry"
 	"github.com/sunshineplan/utils/workers"
 )
 
@@ -20,7 +19,7 @@ const defaultName = "output.ts"
 
 type Downloader struct {
 	m3u8    string
-	workers *workers.Workers
+	workers int
 	results []errResult
 }
 
@@ -34,12 +33,12 @@ func SetAgent(ua string) {
 }
 
 func NewTask(url string) *Downloader {
-	return &Downloader{m3u8: url, workers: workers.New(runtime.NumCPU())}
+	return &Downloader{m3u8: url}
 }
 
 func (d *Downloader) SetWorkers(n int) *Downloader {
 	if n > 0 {
-		d.workers = workers.New(n)
+		d.workers = n
 	}
 	return d
 }
@@ -47,7 +46,7 @@ func (d *Downloader) SetWorkers(n int) *Downloader {
 func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 	output = filepath.Join(path, output+".tmp", fmt.Sprintf("%d.ts", s.SeqId))
 
-	if err := utils.Retry(
+	if err := retry.Do(
 		func() error {
 			res := gohttp.Get(s.URI, nil)
 			if res.Error != nil {
@@ -70,9 +69,9 @@ func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, path, output string) {
 	pb.Start()
 	defer pb.Done()
 
-	d.workers.Slice(s, func(_ int, item interface{}) {
+	workers.RunSlice(d.workers, s, func(_ int, segment *m3u8.MediaSegment) {
 		defer pb.Add(1)
-		d.dlSegment(item.(*m3u8.MediaSegment), path, output)
+		d.dlSegment(segment, path, output)
 	})
 }
 

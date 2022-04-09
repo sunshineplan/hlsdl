@@ -123,7 +123,7 @@ func fetchM3U8(url string) (r io.Reader, u *url.URL, err error) {
 
 	var id network.RequestID
 	done := make(chan struct{})
-	chromedp.ListenTarget(ctx, func(v interface{}) {
+	chromedp.ListenTarget(ctx, func(v any) {
 		switch ev := v.(type) {
 		case *network.EventRequestWillBeSent:
 			if strings.Contains(ev.Request.URL, ".m3u8") && id == "" {
