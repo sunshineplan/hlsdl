@@ -19,8 +19,8 @@ github.com/mailru/easyjson v0.7.7/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJ
 github.com/orisano/pixelmatch v0.0.0-20210112091706-4fa4c7ba91d5 h1:1SoBaSPudixRecmlHXb/GxmaD3fLMtHIDN13QujwQuc=
 github.com/sunshineplan/gohttp v1.0.4 h1:LKcPOBGE0JWUO3Unx0jCfXnQtrXoa/vXkmPkaARAzEA=
 github.com/sunshineplan/gohttp v1.0.4/go.mod h1:6ETpgffOt/gQjfgRonc61WrwqJyybczDiaiLY6DCTho=
-github.com/sunshineplan/utils v0.1.4 h1:p0uAI1ugowRogsSHvGNnyRcamwaq7CClUN0xAvtARtM=
-github.com/sunshineplan/utils v0.1.4/go.mod h1:HfKwfZdb8gYzo451GrkSqdNQE6xVRtdLJ6gZV5XRaC4=
+github.com/sunshineplan/utils v0.1.5 h1:13Zxnil/vh0l3OBZjoudAkZCczWOEE1LAQvIOwMAgng=
+github.com/sunshineplan/utils v0.1.5/go.mod h1:HfKwfZdb8gYzo451GrkSqdNQE6xVRtdLJ6gZV5XRaC4=
 golang.org/x/net v0.0.0-20220407224826-aac1ed45d8e3 h1:EN5+DfgmRMvRUrMGERW2gQl3Vc+Z7ZMnI/xdEpPSf0c=
 golang.org/x/net v0.0.0-20220407224826-aac1ed45d8e3/go.mod h1:CfG3xpIq0wQ8r1q4Su4UZFWDARRcnwPjda9FqA0JpMk=
 golang.org/x/sys v0.0.0-20201207223542-d4d67f95c62d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
