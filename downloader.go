@@ -32,8 +32,8 @@ func SetAgent(ua string) {
 	gohttp.SetAgent(ua)
 }
 
-func NewTask(url string) *Downloader {
-	return &Downloader{m3u8: url}
+func NewTask(m3u8 string) *Downloader {
+	return &Downloader{m3u8: m3u8}
 }
 
 func (d *Downloader) SetWorkers(n int) *Downloader {
@@ -80,14 +80,22 @@ func (d *Downloader) Run(path, output string) error {
 		output = defaultName
 	}
 
+	var playlist *m3u8.MediaPlaylist
 	u, err := url.Parse(d.m3u8)
 	if err != nil {
-		return fmt.Errorf("invalid m3u8 url")
-	}
-
-	u, playlist, err := FetchM3U8MediaPlaylist(u, true)
-	if err != nil {
-		return err
+		return fmt.Errorf("invalid m3u8")
+	} else {
+		if u.Scheme == "http" || u.Scheme == "https" {
+			u, playlist, err = FetchM3U8MediaPlaylist(u, true)
+			if err != nil {
+				return err
+			}
+		} else {
+			u, playlist, err = LoadM3U8MediaPlaylist(d.m3u8, true)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	tmp := filepath.Join(path, output+".tmp")

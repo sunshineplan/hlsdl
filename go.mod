@@ -3,9 +3,10 @@ module github.com/sunshineplan/hlsdl
 go 1.18
 
 require (
-	github.com/chromedp/cdproto v0.0.0-20220812200530-d0d83820bffc
+	github.com/chromedp/cdproto v0.0.0-20220816211547-b8b15824df23
 	github.com/chromedp/chromedp v0.8.4
 	github.com/grafov/m3u8 v0.11.1
+	github.com/sunshineplan/chrome v1.0.7
 	github.com/sunshineplan/gohttp v1.0.4
 	github.com/sunshineplan/utils v0.1.5
 )
@@ -18,5 +19,5 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	golang.org/x/net v0.0.0-20220407224826-aac1ed45d8e3 // indirect
-	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab // indirect
+	golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 // indirect
 )

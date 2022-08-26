@@ -7,15 +7,16 @@ import (
 	"os"
 
 	"github.com/sunshineplan/hlsdl"
+	"github.com/sunshineplan/utils"
 )
 
-var url string
+const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
 
 var (
 	path      = flag.String("path", "", "Output Path")
 	output    = flag.String("output", "output.ts", "Output File Name")
 	workers   = flag.Int("workers", 0, "Workers")
-	userAgent = flag.String("ua", "", "User Agent String")
+	userAgent = flag.String("ua", utils.UserAgent(ua), "User Agent String")
 )
 
 func usage() {
@@ -39,18 +40,20 @@ func main() {
 
 	flag.Usage = usage
 	flag.Parse()
+
+	var input string
 	for len(flag.Args()) != 0 {
-		url = flag.Args()[0]
+		input = flag.Args()[0]
 		os.Args = append(os.Args[:1], flag.Args()[1:]...)
 		flag.Parse()
 	}
 
-	if url == "" {
-		fmt.Print("Please input m3u8 url: ")
-		fmt.Scanln(&url)
+	if input == "" {
+		fmt.Print("Please input m3u8 url or file path: ")
+		fmt.Scanln(&input)
 	}
-	if url == "" {
-		log.Print("No m3u8 url provided.")
+	if input == "" {
+		log.Print("No m3u8 provided.")
 		return
 	}
 
@@ -58,7 +61,7 @@ func main() {
 		hlsdl.SetAgent(*userAgent)
 	}
 
-	if err := hlsdl.NewTask(url).SetWorkers(*workers).Run(*path, *output); err != nil {
+	if err := hlsdl.NewTask(input).SetWorkers(*workers).Run(*path, *output); err != nil {
 		log.Print(err)
 	}
 }
