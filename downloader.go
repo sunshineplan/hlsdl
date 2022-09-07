@@ -55,8 +55,8 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 			if res.StatusCode != 200 {
 				return fmt.Errorf("no StatusOK response from %s", s.URI)
 			}
-
-			return res.Save(output)
+			_, err := res.Save(output)
+			return err
 		}, 5, 5,
 	); err != nil {
 		d.results = append(d.results, errResult{s.SeqId, err})
