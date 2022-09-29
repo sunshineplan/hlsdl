@@ -1,5 +1,5 @@
-github.com/chromedp/cdproto v0.0.0-20220901095120-1a01299a2163 h1:d3i/+z+spo9ieg6L5FWdGmcgvAzsyFNl1vsr68RjzBc=
-github.com/chromedp/cdproto v0.0.0-20220901095120-1a01299a2163/go.mod h1:5Y4sD/eXpwrChIuxhSr/G20n9CdbCmoerOHnuAf0Zr0=
+github.com/chromedp/cdproto v0.0.0-20220924210414-0e3390be1777 h1:nEnjcdmVQjhtQm0RFJxRINMw7lsQ8gidtbpsidiDqpY=
+github.com/chromedp/cdproto v0.0.0-20220924210414-0e3390be1777/go.mod h1:5Y4sD/eXpwrChIuxhSr/G20n9CdbCmoerOHnuAf0Zr0=
 github.com/chromedp/chromedp v0.8.5 h1:HAVg54yQFcn7sg5reVjXtoI1eQaFxhjAjflHACicUFw=
 github.com/chromedp/chromedp v0.8.5/go.mod h1:xal2XY5Di7m/bzlGwtoYpmgIOfDqCakOIVg5OfdkPZ4=
 github.com/chromedp/sysutil v1.0.0 h1:+ZxhTpfpZlmchB58ih/LBHX52ky7w2VhQVKQMucy3Ic=
@@ -18,8 +18,8 @@ github.com/ledongthuc/pdf v0.0.0-20220302134840-0c2507a12d80 h1:6Yzfa6GP0rIo/kUL
 github.com/mailru/easyjson v0.7.7 h1:UGYAvKxe3sBsEDzO8ZeWOSlIQfWFlxbzLZe7hwFURr0=
 github.com/mailru/easyjson v0.7.7/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJJLY9Nlc=
 github.com/orisano/pixelmatch v0.0.0-20220722002657-fb0b55479cde h1:x0TT0RDC7UhAVbbWWBzr41ElhJx5tXPWkIHA2HWPRuw=
-github.com/sunshineplan/chrome v1.0.9 h1:T+eBX8wcrJupjKPzsxJQG4aBeRznm8Zst40iBRsZGks=
-github.com/sunshineplan/chrome v1.0.9/go.mod h1:gE/eRyItZnU7T7WLrGy4uu0eyFuS9NAXq7YN6+0lUAc=
+github.com/sunshineplan/chrome v1.0.15 h1:+uFisZexfsuU4nxFx5q8aeRFb8p4QE9YowTDEKVU4Bc=
+github.com/sunshineplan/chrome v1.0.15/go.mod h1:IVm3C9RG+Vrm8Sri9wfUelTQDS9RjQ9mw0HU7+wId1Y=
 github.com/sunshineplan/gohttp v1.0.5 h1:wScgs9Bl0a8rafLXPeNnNsMTG3qn5LNWkoWvkKvaP4s=
 github.com/sunshineplan/gohttp v1.0.5/go.mod h1:zSxRKlkbXY/5yRDQsrV3dXGCQBZNp1t4QqC5LHkg3bg=
 github.com/sunshineplan/utils v0.1.8 h1:X3SKvob7bXz/MLYplRSWZXUuAh3bPNmBj+nn3qz/UQM=
@@ -27,5 +27,5 @@ github.com/sunshineplan/utils v0.1.8/go.mod h1:HfKwfZdb8gYzo451GrkSqdNQE6xVRtdLJ
 golang.org/x/net v0.0.0-20220906165146-f3363e06e74c h1:yKufUcDwucU5urd+50/Opbt4AYpqthk7wHpHok8f1lo=
 golang.org/x/net v0.0.0-20220906165146-f3363e06e74c/go.mod h1:YDH+HFinaLZZlnHAfSS6ZXJJ9M9t4Dl22yv3iI2vPwk=
 golang.org/x/sys v0.0.0-20201207223542-d4d67f95c62d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20220907062415-87db552b00fd h1:AZeIEzg+8RCELJYq8w+ODLVxFgLMMigSwO/ffKPEd9U=
-golang.org/x/sys v0.0.0-20220907062415-87db552b00fd/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20220919091848-fb04ddd9f9c8 h1:h+EGohizhe9XlX18rfpa8k8RAc5XyaeamM+0VHRd4lc=
+golang.org/x/sys v0.0.0-20220919091848-fb04ddd9f9c8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
