@@ -2,7 +2,6 @@ package hlsdl
 
 import (
 	"bytes"
-	"context"
 	"fmt"
 	"io"
 	"log"
@@ -64,16 +63,13 @@ func FetchM3U8MediaPlaylist(u *url.URL, debug bool) (*url.URL, *m3u8.MediaPlayli
 }
 
 func fetchURL(url string) (io.Reader, *url.URL, error) {
-	ctx, cancel, err := chrome.Headless(false).Context()
-	if err != nil {
+	c := chrome.Headless(false)
+	if _, _, err := c.WithTimeout(15 * time.Second); err != nil {
 		return nil, nil, err
 	}
-	defer cancel()
+	defer c.Close()
 
-	ctx, cancel = context.WithTimeout(ctx, 15*time.Second)
-	defer cancel()
-
-	if err := chrome.EnableFetch(ctx, func(ev *fetch.EventRequestPaused) bool {
+	if err := c.EnableFetch(func(ev *fetch.EventRequestPaused) bool {
 		return ev.ResourceType == network.ResourceTypeImage ||
 			ev.ResourceType == network.ResourceTypeStylesheet ||
 			ev.ResourceType == network.ResourceTypeMedia
@@ -81,15 +77,15 @@ func fetchURL(url string) (io.Reader, *url.URL, error) {
 		return nil, nil, err
 	}
 
-	done := chrome.ListenEvent(ctx, chrome.URLContains(".m3u8"), "GET", true)
-	if err := chromedp.Run(ctx, chromedp.Navigate(url)); err != nil {
+	done := c.ListenEvent(chrome.URLContains(".m3u8"), "GET", true)
+	if err := chromedp.Run(c, chromedp.Navigate(url)); err != nil {
 		return nil, nil, err
 	}
 	select {
-	case <-ctx.Done():
-		return nil, nil, ctx.Err()
+	case <-c.Done():
+		return nil, nil, c.Err()
 	case e := <-done:
-		u, _ := urlParse(e.URL)
+		u, _ := urlParse(e.Response.Response.URL)
 		return bytes.NewReader(e.Bytes), u, nil
 	}
 }
