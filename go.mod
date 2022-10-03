@@ -4,9 +4,9 @@ go 1.19
 
 require (
 	github.com/chromedp/cdproto v0.0.0-20220924210414-0e3390be1777
-	github.com/chromedp/chromedp v0.8.5
+	github.com/chromedp/chromedp v0.8.6
 	github.com/grafov/m3u8 v0.11.1
-	github.com/sunshineplan/chrome v1.0.18
+	github.com/sunshineplan/chrome v1.0.20
 	github.com/sunshineplan/gohttp v1.0.5
 	github.com/sunshineplan/utils v0.1.8
 )
