@@ -21,7 +21,7 @@ jobs:
         run: |
           go build -ldflags "-s -w" -o hlsdl ./cmd
           GOOS=windows go build -ldflags "-s -w" -o hlsdl.exe ./cmd
-          echo "::set-output name=date::$(TZ=PRC date +'%Y-%m-%d')"
+          echo "date=$(TZ=PRC date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Upload Release Asset
         uses: shogo82148/actions-upload-release-asset@v1
