@@ -3,8 +3,8 @@ module github.com/sunshineplan/hlsdl
 go 1.19
 
 require (
-	github.com/chromedp/cdproto v0.0.0-20221126224343-3a0787b8dd28
-	github.com/chromedp/chromedp v0.8.6
+	github.com/chromedp/cdproto v0.0.0-20230109101555-6b041c6303cc
+	github.com/chromedp/chromedp v0.8.7
 	github.com/grafov/m3u8 v0.11.1
 	github.com/sunshineplan/chrome v1.1.0
 	github.com/sunshineplan/gohttp v1.0.5
