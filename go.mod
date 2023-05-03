@@ -7,7 +7,7 @@ require (
 	github.com/chromedp/chromedp v0.9.1
 	github.com/grafov/m3u8 v0.12.0
 	github.com/sunshineplan/chrome v1.1.0
-	github.com/sunshineplan/gohttp v1.0.5
+	github.com/sunshineplan/gohttp v1.0.6
 	github.com/sunshineplan/utils v0.1.37
 )
 
@@ -18,6 +18,7 @@ require (
 	github.com/gobwas/ws v1.1.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/net v0.9.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 )
