@@ -24,8 +24,8 @@ github.com/sunshineplan/chrome v1.1.0 h1:t3uxBXjucMyuPfCAlhWqq5DIhzkh1SWhiEB/2Wy
 github.com/sunshineplan/chrome v1.1.0/go.mod h1:4tvXCG1u4lzjUVwfXspatpcFPChvr5h0eWzMVxOQUHM=
 github.com/sunshineplan/gohttp v1.0.6 h1:8Q4nPexZcBlES3Ee7z4kACV2RvS+SqN74L+FJAH8vPg=
 github.com/sunshineplan/gohttp v1.0.6/go.mod h1:aTmCdd7sOiBHDyFVDW9pTvX5ecRUOFym4zGN9DhwM18=
-github.com/sunshineplan/utils v0.1.37 h1:iBbc10xV8BxpPbEWL+/uQd17m8ZMTl/nNe4mjnfuB5k=
-github.com/sunshineplan/utils v0.1.37/go.mod h1:Wx+eubdt52Vl0l7U6gGjtP6VGrA5jqLeqWNDckGXL8I=
+github.com/sunshineplan/utils v0.1.38 h1:exLWaNIHIRNjMPyTb9YUP6Q9CQFok1M5T74WCL+exoI=
+github.com/sunshineplan/utils v0.1.38/go.mod h1:Wx+eubdt52Vl0l7U6gGjtP6VGrA5jqLeqWNDckGXL8I=
 golang.org/x/net v0.9.0 h1:aWJ/m6xSmxWBx+V0XRHTlrYrPG56jKsLdTFmsSsCzOM=
 golang.org/x/net v0.9.0/go.mod h1:d48xBJpPfHeWQsugry2m+kC02ZBRGRgulfHnEXEuWns=
 golang.org/x/sys v0.0.0-20201207223542-d4d67f95c62d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
