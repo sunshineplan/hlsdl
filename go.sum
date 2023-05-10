@@ -20,8 +20,8 @@ github.com/mailru/easyjson v0.7.7 h1:UGYAvKxe3sBsEDzO8ZeWOSlIQfWFlxbzLZe7hwFURr0
 github.com/mailru/easyjson v0.7.7/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJJLY9Nlc=
 github.com/orisano/pixelmatch v0.0.0-20220722002657-fb0b55479cde h1:x0TT0RDC7UhAVbbWWBzr41ElhJx5tXPWkIHA2HWPRuw=
 github.com/orisano/pixelmatch v0.0.0-20220722002657-fb0b55479cde/go.mod h1:nZgzbfBr3hhjoZnS66nKrHmduYNpc34ny7RK4z5/HM0=
-github.com/sunshineplan/chrome v1.1.0 h1:t3uxBXjucMyuPfCAlhWqq5DIhzkh1SWhiEB/2WyiVe4=
-github.com/sunshineplan/chrome v1.1.0/go.mod h1:4tvXCG1u4lzjUVwfXspatpcFPChvr5h0eWzMVxOQUHM=
+github.com/sunshineplan/chrome v1.1.2 h1:Bfv6mAtNX1qN5Ss/51iigzYGKtuG3bzZFmhVYrMHnbU=
+github.com/sunshineplan/chrome v1.1.2/go.mod h1:5NN+TPkYKramXcWdPu3IdYDEDHpVeNOzQnU5PCmbg1U=
 github.com/sunshineplan/gohttp v1.0.6 h1:8Q4nPexZcBlES3Ee7z4kACV2RvS+SqN74L+FJAH8vPg=
 github.com/sunshineplan/gohttp v1.0.6/go.mod h1:aTmCdd7sOiBHDyFVDW9pTvX5ecRUOFym4zGN9DhwM18=
 github.com/sunshineplan/utils v0.1.38 h1:exLWaNIHIRNjMPyTb9YUP6Q9CQFok1M5T74WCL+exoI=
