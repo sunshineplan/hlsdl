@@ -48,14 +48,14 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 
 	if err := retry.Do(
 		func() error {
-			res := gohttp.Get(s.URI, nil)
-			if res.Error != nil {
-				return res.Error
+			resp, err := gohttp.Get(s.URI, nil)
+			if err != nil {
+				return err
 			}
-			if res.StatusCode != 200 {
+			if resp.StatusCode != 200 {
 				return fmt.Errorf("no StatusOK response from %s", s.URI)
 			}
-			_, err := res.Save(output)
+			_, err = resp.Save(output)
 			return err
 		}, 5, 5,
 	); err != nil {

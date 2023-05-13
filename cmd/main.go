@@ -7,16 +7,16 @@ import (
 	"os"
 
 	"github.com/sunshineplan/hlsdl"
-	"github.com/sunshineplan/utils"
+	"github.com/sunshineplan/useragent"
 )
 
-const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
 
 var (
 	path      = flag.String("path", "", "Output Path")
 	output    = flag.String("output", "output.ts", "Output File Name")
 	workers   = flag.Int("workers", 0, "Workers")
-	userAgent = flag.String("ua", utils.UserAgent(ua), "User Agent String")
+	userAgent = flag.String("ua", useragent.UserAgent(ua), "User Agent String")
 )
 
 func usage() {

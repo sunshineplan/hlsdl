@@ -1,6 +1,7 @@
 package hlsdl
 
 import (
+	"net/url"
 	"testing"
 )
 
@@ -27,7 +28,7 @@ https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls16.m4s
 https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls17.m4s
 #EXT-X-ENDLIST
 `
-	u, _ := urlParse(m3u8URL)
+	u, _ := url.Parse(m3u8URL)
 	u, playlist, err := FetchM3U8MediaPlaylist(u, true)
 	if err != nil {
 		t.Fatal(err)
@@ -51,7 +52,7 @@ func TestM3U8(t *testing.T) {
 		"https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls16.m4s",
 		"https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls17.m4s",
 	}
-	u, _ := urlParse(m3u8URL)
+	u, _ := url.Parse(m3u8URL)
 	u, playlist, err := FetchM3U8MediaPlaylist(u, true)
 	if err != nil {
 		t.Fatal(err)

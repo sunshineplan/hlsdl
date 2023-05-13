@@ -127,17 +127,16 @@ func getKey(url string) (b []byte, err error) {
 		return
 	}
 
-	res := gohttp.Get(url, nil)
-	if res.Error != nil {
-		err = res.Error
+	resp, err := gohttp.Get(url, nil)
+	if err != nil {
 		return
 	}
-	if res.StatusCode != 200 {
+	if resp.StatusCode != 200 {
 		err = fmt.Errorf("no StatusOK response from %s", url)
 		return
 	}
 
-	b = res.Bytes()
+	b = resp.Bytes()
 
 	c.Set(url, b, time.Hour, nil)
 
