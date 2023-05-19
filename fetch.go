@@ -24,6 +24,7 @@ func DefaultUserAgent() string { return ua }
 
 func init() {
 	ua = useragent.UserAgent(ua)
+	SetAgent(ua)
 }
 
 func LoadM3U8MediaPlaylist(file string, debug bool) (*url.URL, *m3u8.MediaPlaylist, error) {

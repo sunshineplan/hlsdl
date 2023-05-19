@@ -7,16 +7,12 @@ import (
 	"os"
 
 	"github.com/sunshineplan/hlsdl"
-	"github.com/sunshineplan/useragent"
 )
 
-const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
-
 var (
-	path      = flag.String("path", "", "Output Path")
-	output    = flag.String("output", "output.ts", "Output File Name")
-	workers   = flag.Int("workers", 0, "Workers")
-	userAgent = flag.String("ua", useragent.UserAgent(ua), "User Agent String")
+	path    = flag.String("path", "", "Output Path")
+	output  = flag.String("output", "output.ts", "Output File Name")
+	workers = flag.Int("workers", 0, "Workers")
 )
 
 func usage() {
@@ -55,10 +51,6 @@ func main() {
 	if input == "" {
 		log.Print("No m3u8 provided.")
 		return
-	}
-
-	if *userAgent != "" {
-		hlsdl.SetAgent(*userAgent)
 	}
 
 	if err := hlsdl.NewTask(input).SetWorkers(*workers).Run(*path, *output); err != nil {
