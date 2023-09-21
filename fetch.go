@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"net/url"
 	"os"
 	"time"
@@ -27,7 +27,7 @@ func init() {
 	SetAgent(ua)
 }
 
-func LoadM3U8MediaPlaylist(file string, debug bool) (*url.URL, *m3u8.MediaPlaylist, error) {
+func LoadM3U8MediaPlaylist(file string) (*url.URL, *m3u8.MediaPlaylist, error) {
 	f, err := os.Open(file)
 	if err != nil {
 		return nil, nil, err
@@ -36,10 +36,10 @@ func LoadM3U8MediaPlaylist(file string, debug bool) (*url.URL, *m3u8.MediaPlayli
 	if err != nil {
 		return nil, nil, err
 	}
-	return parse(&url.URL{Host: file}, playlist, debug)
+	return parse(&url.URL{Host: file}, playlist)
 }
 
-func FetchM3U8MediaPlaylist(u *url.URL, debug bool) (*url.URL, *m3u8.MediaPlaylist, error) {
+func FetchM3U8MediaPlaylist(u *url.URL) (*url.URL, *m3u8.MediaPlaylist, error) {
 	resp, err := gohttp.Get(u.String(), nil)
 	if err != nil {
 		return nil, nil, err
@@ -51,23 +51,19 @@ func FetchM3U8MediaPlaylist(u *url.URL, debug bool) (*url.URL, *m3u8.MediaPlayli
 	var r io.Reader
 	playlist, _, err := m3u8.DecodeFrom(bytes.NewReader(resp.Bytes()), false)
 	if err != nil {
-		if debug {
-			log.Println("Analyzing", u)
-		}
+		slog.Debug("Analyzing " + u.String())
 		r, u, err = fetchURL(u.String())
 		if err != nil {
 			return nil, nil, err
 		}
-		if debug {
-			log.Println("Found", u)
-		}
+		slog.Debug("Found " + u.String())
 		playlist, _, err = m3u8.DecodeFrom(r, false)
 		if err != nil {
 			return nil, nil, err
 		}
 	}
 
-	return parse(u, playlist, debug)
+	return parse(u, playlist)
 }
 
 func fetchURL(address string) (io.Reader, *url.URL, error) {

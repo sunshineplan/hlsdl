@@ -3,7 +3,7 @@ package hlsdl
 import (
 	"encoding/binary"
 	"fmt"
-	"log"
+	"log/slog"
 	"net/url"
 	"os"
 	"sort"
@@ -16,7 +16,7 @@ import (
 
 var c = cache.New(false)
 
-func parse(url *url.URL, playlist m3u8.Playlist, debug bool) (*url.URL, *m3u8.MediaPlaylist, error) {
+func parse(url *url.URL, playlist m3u8.Playlist) (*url.URL, *m3u8.MediaPlaylist, error) {
 	switch playlist := playlist.(type) {
 	case *m3u8.MediaPlaylist:
 		var segments []*m3u8.MediaSegment
@@ -64,16 +64,12 @@ func parse(url *url.URL, playlist m3u8.Playlist, debug bool) (*url.URL, *m3u8.Me
 			return playlist.Variants[i].Bandwidth > playlist.Variants[j].Bandwidth
 		})
 		if len(playlist.Variants) != 0 {
-			if debug {
-				log.Print("Parse from master playlist:")
-				fmt.Println(playlist)
-			}
-
+			slog.Debug("Parse from master playlist:\n" + playlist.String())
 			u, err := url.Parse(playlist.Variants[0].URI)
 			if err != nil {
 				return nil, nil, err
 			}
-			return FetchM3U8MediaPlaylist(u, debug)
+			return FetchM3U8MediaPlaylist(u)
 		} else {
 			return nil, nil, fmt.Errorf("empty master playlist")
 		}
