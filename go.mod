@@ -8,7 +8,7 @@ require (
 	github.com/grafov/m3u8 v0.12.0
 	github.com/sunshineplan/chrome v1.1.3
 	github.com/sunshineplan/gohttp v1.0.10
-	github.com/sunshineplan/useragent v1.0.0
+	github.com/sunshineplan/useragent v1.0.1
 	github.com/sunshineplan/utils v0.1.52
 )
 
