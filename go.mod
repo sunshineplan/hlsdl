@@ -9,7 +9,7 @@ require (
 	github.com/sunshineplan/chrome v1.1.8
 	github.com/sunshineplan/gohttp v1.0.10
 	github.com/sunshineplan/useragent v1.0.1
-	github.com/sunshineplan/utils v0.1.59
+	github.com/sunshineplan/utils v0.1.60
 )
 
 require (
