@@ -65,11 +65,11 @@ func parse(url *url.URL, playlist m3u8.Playlist) (*url.URL, *m3u8.MediaPlaylist,
 		})
 		if len(playlist.Variants) != 0 {
 			slog.Debug("Parse from master playlist:\n" + playlist.String())
-			u, err := url.Parse(playlist.Variants[0].URI)
+			ref, err := url.Parse(playlist.Variants[0].URI)
 			if err != nil {
 				return nil, nil, err
 			}
-			return FetchM3U8MediaPlaylist(u)
+			return FetchM3U8MediaPlaylist(url.ResolveReference(ref))
 		} else {
 			return nil, nil, fmt.Errorf("empty master playlist")
 		}
