@@ -42,8 +42,6 @@ Usage: hlsdl [options...] <url>
 ./hlsdl -workers 10 -path output -output video.ts https://s3.amazonaws.com/qa.jwplayer.com/hlsjs/muxed-fmp4/hls.m3u8
 ```
 Get prebuild binary: https://github.com/sunshineplan/hlsdl/releases
-* hlsdl for linux
-* hlsdl.exe for windows
 
 ## See also
 

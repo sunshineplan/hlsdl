@@ -45,7 +45,9 @@ func (d *Downloader) SetWorkers(n int) *Downloader {
 
 func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 	output = filepath.Join(path, output+".tmp", fmt.Sprintf("%d.ts", s.SeqId))
-
+	if _, err := os.Stat(output); err == nil {
+		return
+	}
 	if err := retry.Do(
 		func() error {
 			resp, err := gohttp.Get(s.URI, nil)
@@ -129,10 +131,6 @@ func (d *Downloader) Run(path, output string) error {
 		if _, err := f.Write(data); err != nil {
 			return err
 		}
-
-		if err := os.Remove(file); err != nil {
-			return err
-		}
 	}
 	if len(d.results) > 0 {
 		fmt.Printf("Total %d Error:\n", len(d.results))
@@ -141,7 +139,7 @@ func (d *Downloader) Run(path, output string) error {
 		}
 	}
 
-	if err := os.Remove(tmp); err != nil {
+	if err := os.RemoveAll(tmp); err != nil {
 		return err
 	}
 
