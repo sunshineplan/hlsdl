@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/url"
 	"os"
+	"slices"
 	"sort"
 	"time"
 
@@ -26,6 +27,7 @@ func parse(url *url.URL, playlist m3u8.Playlist) (*url.URL, *m3u8.MediaPlaylist,
 				playlist.Key.URI = u.String()
 			}
 		}
+		playlist.Segments = slices.DeleteFunc(playlist.Segments, func(i *m3u8.MediaSegment) bool { return i == nil })
 		for _, i := range playlist.Segments {
 			if i == nil {
 				continue
