@@ -15,12 +15,13 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.x'
+          go-version: stable
 
       - name: Build
         run: |
-          go build -ldflags "-s -w" -o hlsdl ./cmd
-          GOOS=windows go build -ldflags "-s -w" -o hlsdl.exe ./cmd
+          go build -ldflags "-s -w" -o hlsdl-linux-amd64 ./cmd
+          GOARCH=arm64 GOOS=darwin go build -ldflags "-s -w" -o hlsdl-darwin-arm64 ./cmd
+          GOOS=windows go build -ldflags "-s -w" -o hlsdl-windows-amd64.exe ./cmd
           echo "date=$(TZ=PRC date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Upload Release Asset

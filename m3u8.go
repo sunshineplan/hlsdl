@@ -19,46 +19,45 @@ var c = cache.New(false)
 func parse(url *url.URL, playlist m3u8.Playlist) (*url.URL, *m3u8.MediaPlaylist, error) {
 	switch playlist := playlist.(type) {
 	case *m3u8.MediaPlaylist:
-		var segments []*m3u8.MediaSegment
-		for _, s := range playlist.Segments {
-			if s == nil {
+		if playlist.Key != nil && playlist.Key.URI != "" {
+			if u, err := url.Parse(playlist.Key.URI); err != nil {
+				return nil, nil, err
+			} else {
+				playlist.Key.URI = u.String()
+			}
+		}
+		for _, i := range playlist.Segments {
+			if i == nil {
 				continue
 			}
-
-			if s.Key != nil && s.Key.URI != "" {
-				u, err := url.Parse(s.Key.URI)
-				if err != nil {
+			if i.Key != nil && i.Key.URI != "" {
+				if u, err := url.Parse(i.Key.URI); err != nil {
 					return nil, nil, err
+				} else {
+					i.Key.URI = u.String()
 				}
-				s.Key.URI = u.String()
 			}
-
-			if s.Discontinuity {
-				playlist.Key = s.Key
+			if i.Discontinuity {
+				playlist.Key = i.Key
 			} else {
-				if s.Key == nil && playlist.Key != nil {
-					s.Key = playlist.Key
+				if i.Key == nil && playlist.Key != nil {
+					i.Key = playlist.Key
 				}
 			}
-
-			u, err := url.Parse(s.URI)
-			if err != nil {
+			if u, err := url.Parse(i.URI); err != nil {
 				return nil, nil, err
+			} else {
+				i.URI = u.String()
 			}
-			s.URI = u.String()
-
-			segments = append(segments, s)
 		}
-		playlist.Segments = segments
-
 		return url, playlist, nil
 	case *m3u8.MasterPlaylist:
 		for _, i := range playlist.Variants {
-			u, err := url.Parse(i.URI)
-			if err != nil {
+			if u, err := url.Parse(i.URI); err != nil {
 				continue
+			} else {
+				i.URI = u.String()
 			}
-			i.URI = u.String()
 		}
 		sort.SliceStable(playlist.Variants, func(i, j int) bool {
 			return playlist.Variants[i].Bandwidth > playlist.Variants[j].Bandwidth
