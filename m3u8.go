@@ -15,7 +15,7 @@ import (
 	"github.com/sunshineplan/utils/cache"
 )
 
-var c = cache.New(false)
+var c = cache.New[string, []byte](false)
 
 func parse(url *url.URL, playlist m3u8.Playlist) (*url.URL, *m3u8.MediaPlaylist, error) {
 	switch playlist := playlist.(type) {
@@ -118,9 +118,8 @@ func read(s *m3u8.MediaSegment, file string) ([]byte, error) {
 }
 
 func getKey(url string) (b []byte, err error) {
-	value, ok := c.Get(url)
+	b, ok := c.Get(url)
 	if ok {
-		b = value.([]byte)
 		return
 	}
 
