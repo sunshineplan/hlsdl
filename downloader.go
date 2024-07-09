@@ -1,6 +1,7 @@
 package hlsdl
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/url"
@@ -12,14 +13,14 @@ import (
 	"github.com/sunshineplan/gohttp"
 	"github.com/sunshineplan/utils/progressbar"
 	"github.com/sunshineplan/utils/retry"
-	"github.com/sunshineplan/utils/workers"
+	"github.com/sunshineplan/workers"
 )
 
 const defaultName = "output.ts"
 
 type Downloader struct {
 	m3u8    string
-	workers int
+	workers int64
 	results []errResult
 }
 
@@ -36,7 +37,7 @@ func NewTask(m3u8 string) *Downloader {
 	return &Downloader{m3u8: m3u8}
 }
 
-func (d *Downloader) SetWorkers(n int) *Downloader {
+func (d *Downloader) SetWorkers(n int64) *Downloader {
 	if n > 0 {
 		d.workers = n
 	}
@@ -71,10 +72,10 @@ func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, path, output string) {
 	pb.Start()
 	defer pb.Done()
 
-	workers.RunSlice(d.workers, s, func(_ int, segment *m3u8.MediaSegment) {
+	workers.NewWorkers(d.workers).Run(context.Background(), workers.SliceJob(s, func(_ int, segment *m3u8.MediaSegment) {
 		defer pb.Add(1)
 		d.dlSegment(segment, path, output)
-	})
+	}))
 }
 
 func (d *Downloader) Run(path, output string) error {
