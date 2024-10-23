@@ -12,7 +12,7 @@ import (
 var (
 	path    = flag.String("path", "", "Output Path")
 	output  = flag.String("output", "output.ts", "Output File Name")
-	workers = flag.Int64("workers", 0, "Workers")
+	workers = flag.Int("workers", 0, "Workers")
 )
 
 func usage() {

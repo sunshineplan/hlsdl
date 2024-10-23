@@ -20,7 +20,7 @@ const defaultName = "output.ts"
 
 type Downloader struct {
 	m3u8    string
-	workers int64
+	workers workers.Workers
 	results []errResult
 }
 
@@ -37,10 +37,8 @@ func NewTask(m3u8 string) *Downloader {
 	return &Downloader{m3u8: m3u8}
 }
 
-func (d *Downloader) SetWorkers(n int64) *Downloader {
-	if n > 0 {
-		d.workers = n
-	}
+func (d *Downloader) SetWorkers(n int) *Downloader {
+	d.workers = workers.Workers(n)
 	return d
 }
 
@@ -72,7 +70,7 @@ func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, path, output string) {
 	pb.Start()
 	defer pb.Done()
 
-	workers.NewWorkers(d.workers).Run(context.Background(), workers.SliceJob(s, func(_ int, segment *m3u8.MediaSegment) {
+	d.workers.Run(context.Background(), workers.SliceJob(s, func(_ int, segment *m3u8.MediaSegment) {
 		defer pb.Add(1)
 		d.dlSegment(segment, path, output)
 	}))
