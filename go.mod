@@ -3,8 +3,8 @@ module github.com/sunshineplan/hlsdl
 go 1.23
 
 require (
-	github.com/chromedp/cdproto v0.0.0-20241003230502-a4a8f7c660df
-	github.com/chromedp/chromedp v0.11.0
+	github.com/chromedp/cdproto v0.0.0-20241022234722-4d5d5faf59fb
+	github.com/chromedp/chromedp v0.11.1
 	github.com/grafov/m3u8 v0.12.0
 	github.com/sunshineplan/chrome v1.1.19
 	github.com/sunshineplan/gohttp v1.0.10
@@ -14,7 +14,7 @@ require (
 )
 
 require (
-	github.com/chromedp/sysutil v1.0.0 // indirect
+	github.com/chromedp/sysutil v1.1.0 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.4.0 // indirect
