@@ -10,7 +10,7 @@ require (
 	github.com/sunshineplan/gohttp v1.0.10
 	github.com/sunshineplan/useragent v1.0.1
 	github.com/sunshineplan/utils v0.1.73
-	github.com/sunshineplan/workers v1.0.3
+	github.com/sunshineplan/workers v1.0.4
 )
 
 require (
@@ -21,7 +21,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	golang.org/x/net v0.23.0 // indirect
-	golang.org/x/sync v0.8.0 // indirect
+	golang.org/x/sync v0.9.0 // indirect
 	golang.org/x/sys v0.26.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
