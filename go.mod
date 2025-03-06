@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/chromedp/cdproto v0.0.0-20250222051814-50c6cb17f10a
-	github.com/chromedp/chromedp v0.13.0
+	github.com/chromedp/chromedp v0.13.1
 	github.com/grafov/m3u8 v0.12.1
 	github.com/sunshineplan/chrome v1.1.21
 	github.com/sunshineplan/gohttp v1.0.11
