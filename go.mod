@@ -1,6 +1,7 @@
 module github.com/sunshineplan/hlsdl
 
-go 1.23
+go 1.24
+
 require (
 	github.com/chromedp/cdproto v0.0.0-20250222051814-50c6cb17f10a
 	github.com/chromedp/chromedp v0.13.1
