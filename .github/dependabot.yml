@@ -8,6 +8,9 @@ updates:
       chrome:
         patterns:
           - "*chrome*"
+      sunshine:
+        patterns:
+          - "*sunshine*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
