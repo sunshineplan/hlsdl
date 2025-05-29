@@ -15,7 +15,7 @@ import (
 	"github.com/sunshineplan/utils/cache"
 )
 
-var c = cache.New[string, []byte](false)
+var c = cache.NewWithRenew[string, []byte](false)
 
 func parse(url *url.URL, playlist m3u8.Playlist) (*url.URL, *m3u8.MediaPlaylist, error) {
 	switch playlist := playlist.(type) {
