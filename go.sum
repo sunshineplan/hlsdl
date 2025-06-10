@@ -18,8 +18,8 @@ github.com/ledongthuc/pdf v0.0.0-20220302134840-0c2507a12d80 h1:6Yzfa6GP0rIo/kUL
 github.com/ledongthuc/pdf v0.0.0-20220302134840-0c2507a12d80/go.mod h1:imJHygn/1yfhB7XSJJKlFZKl/J+dCPAknuiaGOshXAs=
 github.com/orisano/pixelmatch v0.0.0-20220722002657-fb0b55479cde h1:x0TT0RDC7UhAVbbWWBzr41ElhJx5tXPWkIHA2HWPRuw=
 github.com/orisano/pixelmatch v0.0.0-20220722002657-fb0b55479cde/go.mod h1:nZgzbfBr3hhjoZnS66nKrHmduYNpc34ny7RK4z5/HM0=
-github.com/sunshineplan/chrome v1.1.21 h1:7ddZlgLPkc4G8W4g+toJr/eRceVQdJTLKGBnT5Nom74=
-github.com/sunshineplan/chrome v1.1.21/go.mod h1:FEWV/S13SyHjzAcdyoPXceCHt0HY699iRslckVCUwDk=
+github.com/sunshineplan/chrome v1.1.24 h1:6tB0jvv68NUEGy9q14X3ZGyBpqoLukjY7zhuDmNeJno=
+github.com/sunshineplan/chrome v1.1.24/go.mod h1:RLYAcYErbqadjp6xkhtNk4NxyRQXk6o9zAa5XmkBjA0=
 github.com/sunshineplan/gohttp v1.0.11 h1:xKkk8w72lmeXuNuEhCtroj+Jq+NQ3gwvW9edOa8kGtk=
 github.com/sunshineplan/gohttp v1.0.11/go.mod h1:gDCAVkkqNsjImob+t9qUD5CHXrBwhXGmH/w4yoagqFQ=
 github.com/sunshineplan/useragent v1.0.1 h1:0x4MIlcOQ2awc1XKUwEJr+fDcJXpm/bw1H7Hbi79PbY=
