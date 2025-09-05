@@ -1,6 +1,6 @@
 module github.com/sunshineplan/hlsdl
 
-go 1.24
+go 1.25
 
 require (
 	github.com/chromedp/cdproto v0.0.0-20250724212937-08a3db8b4327
@@ -8,7 +8,7 @@ require (
 	github.com/grafov/m3u8 v0.12.1
 	github.com/sunshineplan/chrome v1.1.26
 	github.com/sunshineplan/gohttp v1.0.11
-	github.com/sunshineplan/useragent v1.0.1
+	github.com/sunshineplan/useragent v1.0.2
 	github.com/sunshineplan/utils v0.1.79
 	github.com/sunshineplan/workers v1.0.5
 )
