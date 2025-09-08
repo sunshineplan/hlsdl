@@ -7,7 +7,7 @@ require (
 	github.com/chromedp/chromedp v0.14.1
 	github.com/grafov/m3u8 v0.12.1
 	github.com/sunshineplan/chrome v1.1.26
-	github.com/sunshineplan/gohttp v1.0.11
+	github.com/sunshineplan/gohttp v1.0.12
 	github.com/sunshineplan/useragent v1.0.2
 	github.com/sunshineplan/utils v0.1.79
 	github.com/sunshineplan/workers v1.0.5
@@ -19,8 +19,8 @@ require (
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.4.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
+	golang.org/x/sync v0.16.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
 )
