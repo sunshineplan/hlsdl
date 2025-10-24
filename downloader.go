@@ -68,7 +68,7 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 func (d *Downloader) dlSegments(s []*m3u8.MediaSegment, path, output string) {
 	pb := progressbar.New(len(s))
 	pb.Start()
-	defer pb.Done()
+	defer pb.Wait()
 
 	d.workers.Run(context.Background(), workers.SliceJob(s, func(_ int, segment *m3u8.MediaSegment) {
 		defer pb.Add(1)
