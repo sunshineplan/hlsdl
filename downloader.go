@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"time"
 
 	"github.com/grafov/m3u8"
 	"github.com/sunshineplan/gohttp"
@@ -58,7 +59,7 @@ func (d *Downloader) dlSegment(s *m3u8.MediaSegment, path, output string) {
 			}
 			_, err = resp.Save(output)
 			return err
-		}, 5, 5,
+		}, 5, 5*time.Second,
 	); err != nil {
 		d.results = append(d.results, errResult{s.SeqId, err})
 		os.WriteFile(output, nil, 0666)
